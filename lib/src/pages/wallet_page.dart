@@ -169,7 +169,8 @@ class _WalletPageState extends State<WalletPage> {
                                           type: ProgressDialogType.Normal,
                                           isDismissible: true,
                                           showLogs: false);
-                                      pr.style(message: 'Picking order...');
+                                      pr.style(
+                                          message: 'Processing cashout...');
                                       pr.show();
                                       cashOut(myController.text, "m-Pesa",
                                               myPinController.text)
@@ -219,15 +220,32 @@ class _WalletPageState extends State<WalletPage> {
                 padding: EdgeInsets.all(5),
                 width: MediaQuery.of(context).size.width,
                 color: Theme.of(context).accentColor.withOpacity(0.2),
-                child: Row(
-                  children: <Widget>[
-                    Text("Tips", style: Theme.of(context).textTheme.headline4),
-                    Expanded(
-                      child: Text(""),
+                child: Column(
+                  children: [
+                    Row(
+                      children: <Widget>[
+                        Text("Earnings",
+                            style: Theme.of(context).textTheme.headline5),
+                        Expanded(
+                          child: Text(""),
+                        ),
+                        Text("Ksh.${currentUser.value.earnings.toString()}",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
                     ),
-                    Text(
-                      "Ksh.00",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    Divider(),
+                    Row(
+                      children: <Widget>[
+                        Text("Tips",
+                            style: Theme.of(context).textTheme.headline5),
+                        Expanded(
+                          child: Text(""),
+                        ),
+                        Text(
+                          "Ksh.00",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ],
                 ),
