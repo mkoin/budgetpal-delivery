@@ -39,6 +39,9 @@ dependencies:
   cached_network_image: 2.2.0+1
   fluttertoast: 4.0.1
   intl_utils: 1.6.3
+  progress_dialog: ^1.2.4
+  geolocator: ^6.1.14
+  geocoder: ^0.2.1
 
 dev_dependencies:
   flutter_test:
