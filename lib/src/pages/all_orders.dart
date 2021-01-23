@@ -38,6 +38,12 @@ class _OrdersWidgetState extends StateMVC<AllOrdersWidget> {
     return Scaffold(
       key: _con.scaffoldKey,
       appBar: AppBar(
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.orange,
+              height: 1.0,
+            ),
+            preferredSize: Size.fromHeight(2.0)),
         leading: new IconButton(
           icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
           onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
@@ -59,36 +65,30 @@ class _OrdersWidgetState extends StateMVC<AllOrdersWidget> {
               labelColor: Theme.of(context).accentColor),
         ],
       ),
-      body: Stack(children: [
-        RefreshIndicator(
-          onRefresh: _con.refreshOrders,
-          child: ListView(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            children: <Widget>[
-              _con.orders.isEmpty
-                  ? EmptyOrdersWidget()
-                  : ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      primary: false,
-                      itemCount: _con.orders.length,
-                      itemBuilder: (context, index) {
-                        var _order = _con.orders.elementAt(index);
-                        return AllOrdersItemWidget(
-                            expanded: index == 0 ? true : false, order: _order);
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider(height: 20);
-                      },
-                    ),
-            ],
-          ),
+      body: RefreshIndicator(
+        onRefresh: _con.refreshOrders,
+        child: ListView(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          children: <Widget>[
+            _con.orders.isEmpty
+                ? EmptyOrdersWidget()
+                : ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: _con.orders.length,
+                    itemBuilder: (context, index) {
+                      var _order = _con.orders.elementAt(index);
+                      return AllOrdersItemWidget(
+                          expanded: index == 0 ? true : false, order: _order);
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider(height: 20);
+                    },
+                  ),
+          ],
         ),
-        Divider(
-          thickness: 3,
-          color: Color(0xffe3e4ff),
-        ),
-      ]),
+      ),
     );
   }
 }

@@ -146,7 +146,6 @@ class _OrderWidgetState extends StateMVC<OrderWidget>
                             style: Theme.of(context).textTheme.subtitle1)
                       ],
                     ),
-                    Divider(height: 20),
                     Row(
                       children: <Widget>[
                         Expanded(

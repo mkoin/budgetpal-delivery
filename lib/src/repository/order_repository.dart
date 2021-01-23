@@ -34,6 +34,9 @@ Future<Stream<Order>> getOrders() async {
   try {
     final client = new http.Client();
     final streamedRest = await client.send(http.Request('get', uri));
+    print("SASAHOST ${streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)}");
     return streamedRest.stream
         .transform(utf8.decoder)
         .transform(json.decoder)
@@ -78,6 +81,7 @@ Future<Stream<Order>> getAllOrders() async {
         .map((data) => Helper.getData(data))
         .expand((data) => (data as List))
         .map((data) {
+
       return Order.fromJSON(data);
     });
   } catch (e) {
@@ -307,7 +311,6 @@ Future<Map> cancelledOrder(Order order) async {
     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
     body: json.encode(order.cancelledMap()),
   );
-  print("HELLO ${response.body}");
   var res = {
     "message": "${json.decode(response.body)['message']}",
     "status": json.decode(response.body)['success']

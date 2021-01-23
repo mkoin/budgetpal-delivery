@@ -297,6 +297,22 @@ class S {
       args: [],
     );
   }
+  String get license_number {
+    return Intl.message(
+      'License Number',
+      name: 'license_number',
+      desc: '',
+      args: [],
+    );
+  }
+  String get regno {
+    return Intl.message(
+      'Registration Number',
+      name: 'regno',
+      desc: '',
+      args: [],
+    );
+  }
 
   String get phone {
     return Intl.message(
