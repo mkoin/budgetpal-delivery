@@ -34,6 +34,12 @@ class _ProfileWidgetState extends StateMVC<ProfileWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.orange,
+              height: 1.0,
+            ),
+            preferredSize: Size.fromHeight(2.0)),
         leading: new IconButton(
           icon: new Icon(Icons.sort, color: Theme.of(context).primaryColor),
           onPressed: () => widget.parentScaffoldKey?.currentState?.openDrawer(),
