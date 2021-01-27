@@ -1249,6 +1249,14 @@ class S {
       args: [],
     );
   }
+  String get you_dont_have_any_order_available{
+    return Intl.message(
+      'You don\'t have any available order to pick!',
+      name: 'you_dont_have_any_order_available_to_you',
+      desc: '',
+      args: [],
+    );
+  }
 
   String get swip_left_the_notification_to_delete_or_read__unread {
     return Intl.message(

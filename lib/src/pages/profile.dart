@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:markets_deliveryboy/src/repository/user_repository.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/l10n.dart';
@@ -50,10 +51,13 @@ class _ProfileWidgetState extends StateMVC<ProfileWidget> {
         centerTitle: true,
         title: Text(
           S.of(context).profile,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3, color: Theme.of(context).primaryColor)),
+          style: Theme.of(context).textTheme.headline6.merge(TextStyle(
+              letterSpacing: 1.3, color: Theme.of(context).primaryColor)),
         ),
         actions: <Widget>[
-          new ShoppingCartButtonWidget(iconColor: Theme.of(context).primaryColor, labelColor: Theme.of(context).hintColor),
+          new ShoppingCartButtonWidget(
+              iconColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).hintColor),
         ],
       ),
       key: _con.scaffoldKey,
@@ -62,10 +66,12 @@ class _ProfileWidgetState extends StateMVC<ProfileWidget> {
           : SingleChildScrollView(
 //              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   ProfileAvatarWidget(user: _con.user),
                   ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     leading: Icon(
                       Icons.person,
                       color: Theme.of(context).hintColor,
@@ -78,12 +84,20 @@ class _ProfileWidgetState extends StateMVC<ProfileWidget> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      _con.user.bio,
+                      "License Number: ${currentUser.value.license_number}\n",
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Registration Number: ${_con.user.registration_number}",
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
                   ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     leading: Icon(
                       Icons.shopping_basket,
                       color: Theme.of(context).hintColor,
@@ -102,7 +116,9 @@ class _ProfileWidgetState extends StateMVC<ProfileWidget> {
                           itemCount: _con.recentOrders.length,
                           itemBuilder: (context, index) {
                             var _order = _con.recentOrders.elementAt(index);
-                            return OrderItemWidget(expanded: index == 0 ? true : false, order: _order);
+                            return OrderItemWidget(
+                                expanded: index == 0 ? true : false,
+                                order: _order);
                           },
                           separatorBuilder: (context, index) {
                             return SizedBox(height: 20);

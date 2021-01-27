@@ -4,7 +4,15 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" group="android" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="android/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1972241765/cloud_firestore.iml" filepath="$PROJECT_DIR$/.idea/modules/-1972241765/cloud_firestore.iml" group="android/cloud_firestore" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-202165697/cloud_firestore_web.iml" filepath="$PROJECT_DIR$/.idea/modules/-202165697/cloud_firestore_web.iml" group="android/cloud_firestore_web" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1577511130/firebase_auth.iml" filepath="$PROJECT_DIR$/.idea/modules/-1577511130/firebase_auth.iml" group="android/firebase_auth" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/108453121/firebase_auth_web.iml" filepath="$PROJECT_DIR$/.idea/modules/108453121/firebase_auth_web.iml" group="android/firebase_auth_web" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1861849538/firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/-1861849538/firebase_core.iml" group="android/firebase_core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1653175860/firebase_core_web.iml" filepath="$PROJECT_DIR$/.idea/modules/1653175860/firebase_core_web.iml" group="android/firebase_core_web" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1400376268/firebase_messaging.iml" filepath="$PROJECT_DIR$/.idea/modules/-1400376268/firebase_messaging.iml" group="android/firebase_messaging" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/960580665/firebase_storage.iml" filepath="$PROJECT_DIR$/.idea/modules/960580665/firebase_storage.iml" group="android/firebase_storage" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/585078127/firebase_storage_web.iml" filepath="$PROJECT_DIR$/.idea/modules/585078127/firebase_storage_web.iml" group="android/firebase_storage_web" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1264610543/flutter_plugin_android_lifecycle.iml" filepath="$PROJECT_DIR$/.idea/modules/1264610543/flutter_plugin_android_lifecycle.iml" group="android/flutter_plugin_android_lifecycle" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2052050817/fluttertoast.iml" filepath="$PROJECT_DIR$/.idea/modules/-2052050817/fluttertoast.iml" group="android/fluttertoast" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-473276378/geocoder.iml" filepath="$PROJECT_DIR$/.idea/modules/-473276378/geocoder.iml" group="android/geocoder" />

@@ -50,7 +50,7 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
     var addresses =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
-    print("${first.featureName} : ${first.addressLine}");
+    print("${first.featureName} --: ${first.addressLine}");
   }
 
   @override
@@ -101,6 +101,7 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
                       var _order = _con.orders.elementAt(index);
                       return OrderItemWidget(
                           expanded: index == 0 ? true : false,
+                          // expanded: false,
                           order: _order,
                           markets: _con.markets,
                           showDeliverOrPickOrder: true);

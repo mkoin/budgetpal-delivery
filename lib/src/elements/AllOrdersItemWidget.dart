@@ -188,7 +188,7 @@ class _OrderItemWidgetState extends State<AllOrdersItemWidget> {
                           Navigator.of(context).pop();
                           ProgressDialog pr = ProgressDialog(context,
                               type: ProgressDialogType.Normal,
-                              isDismissible: false,
+                              isDismissible: true,
                               showLogs: false);
                           pr.style(message: 'Picking order...');
                           pr.show();

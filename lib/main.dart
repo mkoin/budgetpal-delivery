@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:geocoder/geocoder.dart';
@@ -28,6 +29,7 @@ class MyHttpOverrides extends HttpOverrides {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await GlobalConfiguration().loadFromAsset("configurations");
   print(CustomTrace(StackTrace.current,
       message: "base_url: ${GlobalConfiguration().getString('base_url')}"));

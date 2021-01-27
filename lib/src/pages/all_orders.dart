@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:markets_deliveryboy/src/elements/AllOrdersItemWidget.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../generated/l10n.dart';
 import '../controllers/order_controller.dart';
@@ -22,6 +25,7 @@ class AllOrdersWidget extends StatefulWidget {
 
 class _OrdersWidgetState extends StateMVC<AllOrdersWidget> {
   AllOrdersController _con;
+  var userCurrentAddress = 'set Location';
 
   _OrdersWidgetState() : super(AllOrdersController()) {
     _con = controller;
@@ -30,7 +34,29 @@ class _OrdersWidgetState extends StateMVC<AllOrdersWidget> {
   @override
   void initState() {
     _con.listenForAllOrders();
+    _getCurrentLocation();
     super.initState();
+  }
+
+  _getCurrentLocation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    debugPrint('location: ${position.latitude}');
+
+    final coordinates = new Coordinates(position.latitude, position.longitude);
+    await prefs.setString('latitude', position.latitude.toString());
+    await prefs.setString('longitude', position.longitude.toString());
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+
+    await prefs.setString('userCurrentAddress', first.addressLine.toString());
+    setState(() {
+      userCurrentAddress = first.addressLine.toString();
+    });
+    print("${first.featureName} --: ${first.addressLine}");
   }
 
   @override
@@ -39,9 +65,29 @@ class _OrdersWidgetState extends StateMVC<AllOrdersWidget> {
       key: _con.scaffoldKey,
       appBar: AppBar(
         bottom: PreferredSize(
-            child: Container(
-              color: Colors.orange,
-              height: 1.0,
+            child: Column(
+              children: [
+                Container(
+                  color: Colors.orange,
+                  height: 1.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      child: Text(
+                        " $userCurrentAddress",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
             preferredSize: Size.fromHeight(2.0)),
         leading: new IconButton(
