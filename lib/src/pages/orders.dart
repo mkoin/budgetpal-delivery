@@ -48,7 +48,7 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
     await prefs.setString('latitude', position.latitude.toString());
     await prefs.setString('longitude', position.longitude.toString());
     var addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
     print("${first.featureName} --: ${first.addressLine}");
   }
@@ -65,7 +65,9 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
             ),
             preferredSize: Size.fromHeight(2.0)),
         leading: new IconButton(
-          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
+          icon: new Icon(Icons.sort, color: Theme
+              .of(context)
+              .hintColor),
           onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
         ),
         automaticallyImplyLeading: false,
@@ -73,16 +75,23 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          S.of(context).orders,
-          style: Theme.of(context)
+          S
+              .of(context)
+              .orders,
+          style: Theme
+              .of(context)
               .textTheme
               .headline6
               .merge(TextStyle(letterSpacing: 1.3)),
         ),
         actions: <Widget>[
           new ShoppingCartButtonWidget(
-              iconColor: Theme.of(context).hintColor,
-              labelColor: Theme.of(context).accentColor),
+              iconColor: Theme
+                  .of(context)
+                  .hintColor,
+              labelColor: Theme
+                  .of(context)
+                  .accentColor),
         ],
       ),
       body: RefreshIndicator(
@@ -93,23 +102,24 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
             _con.orders.isEmpty
                 ? EmptyOrdersWidget()
                 : ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: _con.orders.length,
-                    itemBuilder: (context, index) {
-                      var _order = _con.orders.elementAt(index);
-                      return OrderItemWidget(
-                          expanded: index == 0 ? true : false,
-                          // expanded: false,
-                          order: _order,
-                          markets: _con.markets,
-                          showDeliverOrPickOrder: true);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(height: 20);
-                    },
-                  ),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              primary: false,
+              itemCount: _con.orders.length,
+              itemBuilder: (context, index) {
+                var _order = _con.orders.elementAt(index);
+                return OrderItemWidget(
+                  // expanded: index == 0 ? true : false,
+                    expanded: false,
+                    // expanded: false,
+                    order: _order,
+                    markets: _con.markets,
+                    showDeliverOrPickOrder: true);
+              },
+              separatorBuilder: (context, index) {
+                return SizedBox(height: 20);
+              },
+            ),
           ],
         ),
       ),

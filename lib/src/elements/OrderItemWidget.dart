@@ -181,8 +181,9 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                                                 gravity: ToastGravity.TOP,
                                                 timeInSecForIosWeb: 5,
                                               );
-                                              Navigator.of(context)
-                                                  .pushNamed('/Pages', arguments: 1);
+                                              Navigator.of(context).pushNamed(
+                                                  '/Pages',
+                                                  arguments: 1);
                                             });
                                           },
                                         ),
@@ -395,6 +396,37 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                               ),
                             ],
                           ),
+                          Row(
+                            children: [
+                              Expanded(child: Text("")),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                child: Wrap(
+                                  alignment: WrapAlignment.end,
+                                  children: <Widget>[
+                                    FlatButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pushNamed(
+                                            '/OrderDetails',
+                                            arguments: RouteArgument(
+                                                id: widget.order.id,
+                                                param: true));
+                                      },
+                                      textColor: Theme.of(context).hintColor,
+                                      child: Wrap(
+                                        children: <Widget>[
+                                          Text(S.of(context).viewDetails),
+                                          Icon(Icons.keyboard_arrow_right)
+                                        ],
+                                      ),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     )
@@ -402,28 +434,28 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                 ),
               ),
             ),
-            Container(
-              child: Wrap(
-                alignment: WrapAlignment.end,
-                children: <Widget>[
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/OrderDetails',
-                          arguments:
-                              RouteArgument(id: widget.order.id, param: true));
-                    },
-                    textColor: Theme.of(context).hintColor,
-                    child: Wrap(
-                      children: <Widget>[
-                        Text(S.of(context).viewDetails),
-                        Icon(Icons.keyboard_arrow_right)
-                      ],
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   child: Wrap(
+            //     alignment: WrapAlignment.end,
+            //     children: <Widget>[
+            //       FlatButton(
+            //         onPressed: () {
+            //           Navigator.of(context).pushNamed('/OrderDetails',
+            //               arguments:
+            //                   RouteArgument(id: widget.order.id, param: true));
+            //         },
+            //         textColor: Theme.of(context).hintColor,
+            //         child: Wrap(
+            //           children: <Widget>[
+            //             Text(S.of(context).viewDetails),
+            //             Icon(Icons.keyboard_arrow_right)
+            //           ],
+            //         ),
+            //         padding: EdgeInsets.symmetric(horizontal: 20),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
         Padding(

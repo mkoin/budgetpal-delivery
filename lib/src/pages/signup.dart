@@ -520,7 +520,11 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
   }
 
   Future<void> _submitPhoneNumber() async {
-    // pr.show();
+    pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal,
+        isDismissible: true);
+    pr.style(message: 'Please wait ...');
+    pr.show();
     setState(() {
       _status = "";
     });
@@ -542,6 +546,7 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
     }
 
     void verificationFailed(FirebaseAuthException error) {
+      pr.hide();
       setState(() {
         _status = 'Invalid code/invalid authentication';
         _countDownStatus = 'verification Failed';
@@ -554,6 +559,7 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
       this._verificationId = verificationId;
       // print(verificationId);
       this._code = code;
+      pr.hide();
       setState(() {
         _loginUiState = false;
         _startTimer();
