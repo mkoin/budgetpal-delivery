@@ -297,10 +297,10 @@ class S {
       args: [],
     );
   }
-  String get license_number {
+  String get id_number {
     return Intl.message(
-      'License Number',
-      name: 'license_number',
+      'ID Number',
+      name: 'id_number',
       desc: '',
       args: [],
     );

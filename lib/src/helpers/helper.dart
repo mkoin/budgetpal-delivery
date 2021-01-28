@@ -31,7 +31,6 @@ class Helper {
 
   // for mapping data retrieved form json array
   static getData(Map<String, dynamic> data) {
-    // print("LINKED " + data['data']);
     return data['data'] ?? [];
   }
 

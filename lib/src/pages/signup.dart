@@ -78,40 +78,51 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
               ),
             ),
             Positioned(
-              top: config.App(context).appHeight(29.5) - 140,
+              top: config.App(context).appHeight(29.5) - 180,
               child: Container(
                 width: config.App(context).appWidth(84),
                 height: config.App(context).appHeight(29.5),
-                child: Text(
-                  S.of(context).lets_start_with_register,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2
-                      .merge(TextStyle(color: Theme.of(context).primaryColor)),
+                child: Column(
+                  children: [
+                    Text(
+                      S.of(context).lets_start_with_register,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2
+                          .merge(TextStyle(color: Theme.of(context).primaryColor)),
+                    ),
+                    // delivery.jpg
+                    Image.asset(
+                      'assets/img/delivery.jpg',
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ],
                 ),
               ),
             ),
             Positioned(
               top: config.App(context).appHeight(29.5) - 50,
               child: Container(
-                height: MediaQuery.of(context).size.height - 200,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 50,
-                        color: Theme.of(context).hintColor.withOpacity(0.2),
-                      )
-                    ]),
-                margin: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                padding: EdgeInsets.symmetric(vertical: 50, horizontal: 27),
-                width: config.App(context).appWidth(88),
+                  height: MediaQuery.of(context).size.height - 200,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 50,
+                          color: Theme.of(context).hintColor.withOpacity(0.2),
+                        )
+                      ]),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 50, horizontal: 27),
+                  width: config.App(context).appWidth(88),
 //              height: config.App(context).appHeight(55),
-                child: _loginUiState
-                    ? Form(
+                  child: Stack(
+                    children: [
+                      Form(
                         key: _con.loginFormKey,
                         child: ListView(
                           shrinkWrap: true,
@@ -264,18 +275,17 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
                             ),
                             SizedBox(height: 30),
                             TextFormField(
-                              keyboardType: TextInputType.text,
-                              onSaved: (input) =>
-                                  _con.user.license_number = input,
+                              keyboardType: TextInputType.number,
+                              onSaved: (input) => _con.user.id_number = input,
                               validator: (input) => input.length < 3
                                   ? S.of(context).should_be_more_than_3_letters
                                   : null,
                               decoration: InputDecoration(
-                                labelText: S.of(context).license_number,
+                                labelText: S.of(context).id_number,
                                 labelStyle: TextStyle(
                                     color: Theme.of(context).accentColor),
                                 contentPadding: EdgeInsets.all(12),
-                                hintText: 'License Number',
+                                hintText: 'ID Number',
                                 hintStyle: TextStyle(
                                     color: Theme.of(context)
                                         .focusColor
@@ -385,123 +395,136 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
 //                      ),
                           ],
                         ),
-                      )
-                    : Form(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            CustomText(
-                                text: "Verify your number",
-                                size: 24,
-                                weight: FontWeight.bold),
-                            SizedBox(height: 20),
-                            Text(
-                              "To complete your phone number verification, \nplease enter the 6-digit activation code.",
-                              textAlign: TextAlign.center,
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(30, 30, 30, 10),
-                              child: TextFormField(
-                                controller: _otpController,
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'Enter code';
-                                  }
-                                  return null;
-                                },
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.all(10),
-                                  labelText: "Enter code", //prefixIcon
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 16.0),
-                              child: ButtonTheme(
-                                minWidth: 200.0,
-                                height: 40.0,
-                                child: RaisedButton(
-                                  color: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      side: BorderSide(color: Colors.blue)),
-                                  textColor: Colors.white,
-                                  onPressed: () async {
-                                    // Validate returns true if the form is valid, or false
-                                    pr = new ProgressDialog(context,
-                                        type: ProgressDialogType.Normal,
-                                        isDismissible: true);
-                                    pr.style(message: 'Please wait ...');
-                                    pr.show();
-                                    try {
-                                      final result =
-                                          await InternetAddress.lookup(
-                                              'google.com');
-                                      pr.hide();
-                                      if (result.isNotEmpty &&
-                                          result[0].rawAddress.isNotEmpty) {
-                                        _submitOTP();
-                                      } else {
-                                        _noInternetShowDialog();
-                                        return false;
-                                      }
-                                    } on SocketException catch (_) {
-                                      _noInternetShowDialog();
-                                      print('not connected');
-                                      return false;
-                                    }
-                                  },
-                                  child: Text(
-                                    'Verify',
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              _status,
-                              style: TextStyle(fontSize: 15, color: Colors.red),
-                            ),
-                            GestureDetector(
-                              onTap: () => setState(() {
-                                if (_start < 1) {
-                                  _submitPhoneNumber();
-                                }
-                              }),
-                              child: _loginUiState
-                                  ? Text("")
-                                  : Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text('resend code? '),
-                                        Text(
-                                          '$_countDownStatus',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.green),
-                                        )
-                                      ],
-                                    ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _loginUiState = true;
-                                });
-                              },
-                              child: Text("Back"),
-                            ),
-                          ],
-                        ),
                       ),
-              ),
+                      Visibility(
+                          visible: !_loginUiState,
+                          child: Container(
+                            color: Colors.white,
+                            width: MediaQuery.of(context).size.width,
+                            child: Form(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  CustomText(
+                                      text: "Verify your number",
+                                      size: 24,
+                                      weight: FontWeight.bold),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    "To complete your phone number verification, \nplease enter the 6-digit activation code.",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Container(
+                                    padding:
+                                        EdgeInsets.fromLTRB(30, 30, 30, 10),
+                                    child: TextFormField(
+                                      controller: _otpController,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Enter code';
+                                        }
+                                        return null;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(10),
+                                        labelText: "Enter code", //prefixIcon
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16.0),
+                                    child: ButtonTheme(
+                                      minWidth: 200.0,
+                                      height: 40.0,
+                                      child: RaisedButton(
+                                        color: Colors.blue,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                            side:
+                                                BorderSide(color: Colors.blue)),
+                                        textColor: Colors.white,
+                                        onPressed: () async {
+                                          // Validate returns true if the form is valid, or false
+                                          pr = new ProgressDialog(context,
+                                              type: ProgressDialogType.Normal,
+                                              isDismissible: true);
+                                          pr.style(message: 'Please wait ...');
+                                          pr.show();
+                                          try {
+                                            final result =
+                                                await InternetAddress.lookup(
+                                                    'google.com');
+                                            pr.hide();
+                                            if (result.isNotEmpty &&
+                                                result[0]
+                                                    .rawAddress
+                                                    .isNotEmpty) {
+                                              _submitOTP();
+                                            } else {
+                                              _noInternetShowDialog();
+                                              return false;
+                                            }
+                                          } on SocketException catch (_) {
+                                            _noInternetShowDialog();
+                                            print('not connected');
+                                            return false;
+                                          }
+                                        },
+                                        child: Text(
+                                          'Verify',
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    _status,
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.red),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => setState(() {
+                                      if (_start < 1) {
+                                        _submitPhoneNumber();
+                                      }
+                                    }),
+                                    child: _loginUiState
+                                        ? Text("")
+                                        : Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text('resend code? '),
+                                              Text(
+                                                '$_countDownStatus',
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.green),
+                                              )
+                                            ],
+                                          ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _loginUiState = true;
+                                      });
+                                    },
+                                    child: Text("Back"),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )),
+                    ],
+                  )),
             ),
             // Positioned(
             //   bottom: 10,
@@ -521,8 +544,7 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
 
   Future<void> _submitPhoneNumber() async {
     pr = new ProgressDialog(context,
-        type: ProgressDialogType.Normal,
-        isDismissible: true);
+        type: ProgressDialogType.Normal, isDismissible: true);
     pr.style(message: 'Please wait ...');
     pr.show();
     setState(() {
@@ -531,8 +553,7 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
 
     /// NOTE: Either append your phone number country code or add in the code itself
     /// Since I'm in India we use "+91 " as prefix `phoneNumber`
-    String phoneNumber =
-        "+254" + _phoneNumberController.text.toString().trim();
+    String phoneNumber = "+254" + _phoneNumberController.text.toString().trim();
     print("HAPA $phoneNumber");
 
     SharedPreferences prefs = await SharedPreferences.getInstance();

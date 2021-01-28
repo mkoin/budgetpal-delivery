@@ -13,7 +13,7 @@ class User {
   String earnings;
   String totalOrders;
   String registration_number;
-  String license_number;
+  String id_number;
   Media image;
 
   // used for indicate if client logged in or not
@@ -26,7 +26,7 @@ class User {
   User.fromJSON(Map<String, dynamic> jsonMap) {
     try {
       id = jsonMap['id'].toString();
-      license_number = jsonMap['license_number'].toString();
+      id_number = jsonMap['id_number'].toString();
       registration_number = jsonMap['registration_number'].toString();
       name = jsonMap['name'] != null ? jsonMap['name'] : '';
       email = jsonMap['email'] != null ? jsonMap['email'] : '';
@@ -67,7 +67,7 @@ class User {
     var map = new Map<String, dynamic>();
     map["id"] = id;
     map["registration_number"] = registration_number;
-    map["license_number"] = license_number;
+    map["id_number"] = id_number;
     map["email"] = email;
     map["name"] = name;
     map["password"] = password;

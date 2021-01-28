@@ -84,7 +84,7 @@ class _ProfileWidgetState extends StateMVC<ProfileWidget> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      "License Number: ${currentUser.value.license_number}\n",
+                      "ID Number: ${currentUser.value.id_number}\n",
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
