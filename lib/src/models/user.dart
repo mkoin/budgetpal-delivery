@@ -12,6 +12,7 @@ class User {
   String bio;
   String earnings;
   String totalOrders;
+  String cancel_order;
   String registration_number;
   String id_number;
   Media image;
@@ -51,6 +52,11 @@ class User {
         totalOrders = jsonMap['driver'][0]['total_orders'].toString();
       } catch (e) {
         totalOrders = "0";
+      }
+      try {
+        cancel_order = jsonMap['driver'][0]['cancel_order'].toString();
+      } catch (e) {
+        cancel_order = "0";
       }
       try {
         bio = jsonMap['custom_fields']['bio']['view'];

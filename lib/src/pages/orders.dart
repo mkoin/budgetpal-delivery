@@ -159,7 +159,7 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            "${currentUser.value.totalOrders}",
+                            "${currentUser.value.cancel_order}",
                             style: TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
