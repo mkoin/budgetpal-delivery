@@ -7,12 +7,49 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:256359284723:android:e4978d2748c2fd5c319c86",
+        "android_client_info": {
+          "package_name": "com.cilcom.budgetpaldelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256359284723-4rammqonoclo3mj8vmplvijqsa0bg96b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdqcvGDpDQjMyTT879s5JU4CzK0Z1iNBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256359284723-4rammqonoclo3mj8vmplvijqsa0bg96b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:256359284723:android:1d4e93163660ca9c319c86",
         "android_client_info": {
           "package_name": "com.smartersvision.deliveryboy"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "256359284723-lg1mrql5k3ggu6olj5h94gfjs0l9j28k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smartersvision.deliveryboy",
+            "certificate_hash": "33f56cb4482d99c21145e1524355b5a26393d6ee"
+          }
+        },
         {
           "client_id": "256359284723-4rammqonoclo3mj8vmplvijqsa0bg96b.apps.googleusercontent.com",
           "client_type": 3
@@ -73,17 +110,17 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:256359284723:android:5205e58aee528481319c86",
+        "mobilesdk_app_id": "1:256359284723:android:7abbc8a94f55d608319c86",
         "android_client_info": {
-          "package_name": "com.smartersvision.markets_deliveryboy"
+          "package_name": "com.smartersvision.shopping"
         }
       },
       "oauth_client": [
         {
-          "client_id": "256359284723-2vkcn145bri9k82q0vjhs0bggovcn461.apps.googleusercontent.com",
+          "client_id": "256359284723-dkc7d6aju7e6iksgekn1eq0t4qnv3vu2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.smartersvision.markets_deliveryboy",
+            "package_name": "com.smartersvision.shopping",
             "certificate_hash": "33f56cb4482d99c21145e1524355b5a26393d6ee"
           }
         },
