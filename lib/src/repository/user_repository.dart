@@ -78,7 +78,6 @@ Future<void> logout() async {
 void setCurrentUser(jsonString) async {
   try {
     if (json.decode(jsonString)['data'] != null) {
-      print("ASAAAAP ${json.decode(jsonString)['data']}");
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(
           'current_user', json.encode(json.decode(jsonString)['data']));

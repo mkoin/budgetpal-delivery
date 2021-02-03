@@ -14,6 +14,7 @@ class Order {
   double deliveryFee;
   String hint;
   DateTime dateTime;
+  String driver_pick_time;
   User user;
   Payment payment;
   Address deliveryAddress;
@@ -24,17 +25,32 @@ class Order {
     try {
       id = jsonMap['id'].toString();
       storeName = jsonMap['storeName'].toString();
+      driver_pick_time = jsonMap['driver_pick_time'].toString();
       tax = jsonMap['tax'] != null ? jsonMap['tax'].toDouble() : 0.0;
-      deliveryFee = jsonMap['delivery_fee'] != null ? jsonMap['delivery_fee'].toDouble() : 0.0;
+      deliveryFee = jsonMap['delivery_fee'] != null
+          ? jsonMap['delivery_fee'].toDouble()
+          : 0.0;
       hint = jsonMap['hint'].toString();
-      orderStatus = jsonMap['order_status'] != null ? OrderStatus.fromJSON(jsonMap['order_status']) : new OrderStatus();
+      orderStatus = jsonMap['order_status'] != null
+          ? OrderStatus.fromJSON(jsonMap['order_status'])
+          : new OrderStatus();
       dateTime = DateTime.parse(jsonMap['updated_at']);
-      user = jsonMap['user'] != null ? User.fromJSON(jsonMap['user']) : new User();
-      payment = jsonMap['payment'] != null ? Payment.fromJSON(jsonMap['payment']) : new Payment.init();
-      deliveryAddress = jsonMap['delivery_address'] != null ? Address.fromJSON(jsonMap['delivery_address']) : new Address();
-      productOrders = jsonMap['product_orders'] != null ? List.from(jsonMap['product_orders']).map((element) => ProductOrder.fromJSON(element)).toList() : [];
+      user =
+          jsonMap['user'] != null ? User.fromJSON(jsonMap['user']) : new User();
+      payment = jsonMap['payment'] != null
+          ? Payment.fromJSON(jsonMap['payment'])
+          : new Payment.init();
+      deliveryAddress = jsonMap['delivery_address'] != null
+          ? Address.fromJSON(jsonMap['delivery_address'])
+          : new Address();
+      productOrders = jsonMap['product_orders'] != null
+          ? List.from(jsonMap['product_orders'])
+              .map((element) => ProductOrder.fromJSON(element))
+              .toList()
+          : [];
     } catch (e) {
       id = '';
+      driver_pick_time = '';
       id = 'None';
       tax = 0.0;
       deliveryFee = 0.0;
@@ -56,10 +72,12 @@ class Order {
     map["user_id"] = user?.id;
     map["order_status_id"] = orderStatus?.id;
     map["tax"] = tax;
+    map["driver_pick_time"] = driver_pick_time;
     map["delivery_fee"] = deliveryFee;
     map["products"] = productOrders.map((element) => element.toMap()).toList();
     map["payment"] = payment?.toMap();
-    if (deliveryAddress?.id != null && deliveryAddress?.id != 'null') map["delivery_address_id"] = deliveryAddress.id;
+    if (deliveryAddress?.id != null && deliveryAddress?.id != 'null')
+      map["delivery_address_id"] = deliveryAddress.id;
     return map;
   }
 
@@ -69,6 +87,7 @@ class Order {
     map["order_status_id"] = 5;
     return map;
   }
+
   Map cancelledMap() {
     var map = new Map<String, dynamic>();
     map["id"] = id;

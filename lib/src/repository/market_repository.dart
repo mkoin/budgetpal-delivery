@@ -5,20 +5,30 @@ import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
 import 'package:markets_deliveryboy/src/helpers/custom_trace.dart';
 import 'package:markets_deliveryboy/src/models/all_markets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/helper.dart';
 import '../models/market.dart';
 import '../models/review.dart';
 
-Future<Stream<Market>> getNearMarkets(
-    LocationData myLocation, LocationData areaLocation) async {
+// Future<Stream<Market>> getNearMarkets(
+//     LocationData myLocation, LocationData areaLocation) async {
+Future<Stream<Market>> getNearMarkets() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var latitude = prefs.getString('latitude');
+  var longitude = prefs.getString('longitude');
+
+  print("HAAAAAAAAAAAAAAAAAPA $longitude");
   String _nearParams = '';
   String _orderLimitParam = '';
-  if (myLocation != null && areaLocation != null) {
-    _orderLimitParam = 'orderBy=area&limit=5';
-    _nearParams =
-        '&myLon=${myLocation.longitude}&myLat=${myLocation.latitude}&areaLon=${areaLocation.longitude}&areaLat=${areaLocation.latitude}';
-  }
+  // if (myLocation != null && areaLocation != null) {
+  //   _orderLimitParam = 'orderBy=area&limit=5';
+  //   _nearParams =
+  //       '&myLon=${myLocation.longitude}&myLat=${myLocation.latitude}&areaLon=${areaLocation.longitude}&areaLat=${areaLocation.latitude}';
+  // }
+
+  _orderLimitParam = 'orderBy=area&limit=10';
+  _nearParams = '&myLon=${longitude}&myLat=${latitude}&areaLon=${longitude}&areaLat=${latitude}';
   final String url =
       '${GlobalConfiguration().getString('api_base_url')}markets?$_nearParams&$_orderLimitParam';
 
@@ -31,6 +41,7 @@ Future<Stream<Market>> getNearMarkets(
       .map((data) => Helper.getData(data))
       .expand((data) => (data as List))
       .map((data) {
+
     return Market.fromJSON(data);
   });
 }

@@ -50,7 +50,8 @@ class MarketController extends ControllerMVC {
     }, onError: (a) {}, onDone: () {});
   }
   void listenForMarkets() async {
-    final Stream<Market> stream = await getAllMarkets();
+    // final Stream<Market> stream = await getAllMarkets();
+    final Stream<Market> stream = await getNearMarkets();
     stream.listen((Market _market) {
       setState(() => markets.add(_market));
     }, onError: (a) {}, onDone: () {});

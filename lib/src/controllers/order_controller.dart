@@ -38,7 +38,9 @@ class OrderController extends ControllerMVC {
   }
 
   void listenForAllMarkets() async {
-    final Stream<Market> stream = await getAllMarkets();
+    // final Stream<Market> stream = await getAllMarkets();
+
+    final Stream<Market> stream = await getNearMarkets();
     stream.listen((Market _review) {
       setState(() => markets.add(_review));
     }, onError: (a) {

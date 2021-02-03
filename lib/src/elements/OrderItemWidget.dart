@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/style.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -39,6 +40,14 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
+    var time = widget.order.driver_pick_time;
+    DateTime dob = DateTime.parse(time);
+    Duration dur = DateTime.now().difference(dob);
+    // String differenceInYears = (dur.inDays/365).floor().toString();
+    int differenceInMin = dur.inMilliseconds;
+    int startTime = DateTime.now().millisecondsSinceEpoch + 1000 * 3600;
+    int endTime = startTime - differenceInMin;
+    var defalt = "00";
 
     return Stack(
       children: <Widget>[
@@ -79,11 +88,28 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                     children: <Widget>[
                       Helper.getPrice(
                           Helper.getTotalOrdersPrice(widget.order), context,
-                          style: Theme.of(context).textTheme.headline4),
+                          style: Theme.of(context).textTheme.bodyText1),
                       Text(
                         '${widget.order.payment.method}',
                         style: Theme.of(context).textTheme.caption,
-                      )
+                      ),
+                      CountdownTimer(
+                        endTime: endTime,
+                        widgetBuilder: (_, time) {
+                          if (time == null) {
+                            return Text(
+                              'Count Down : Time over',
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
+                            );
+                          }
+                          return Text(
+                            'Count Down : ${time.hours == null ? defalt : time.hours}:${time.min == null ? defalt : time.min}:${time.sec}',
+                            style: TextStyle(color: Colors.green),
+                          );
+                        },
+                      ),
                     ],
                   ),
                   children: <Widget>[
@@ -319,9 +345,9 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    color: Colors.black12,
+                                                    // color: Colors.black12,
                                                     border: Border.all(
-                                                      color: Colors.green,
+                                                      color: Colors.black,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.all(
@@ -337,15 +363,34 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                                                     Padding(
                                                       padding:
                                                           EdgeInsets.all(8.0),
-                                                      child: Text(
-                                                        "${(index + 1)}. ${widget.markets[index].name}",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                        textAlign:
-                                                            TextAlign.start,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            "${(index + 1)}. ${widget.markets[index].name}",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "Range: ${(widget.markets[index].distance * 1.60934).floor()}Km Away",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .blue),
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                     SizedBox(
